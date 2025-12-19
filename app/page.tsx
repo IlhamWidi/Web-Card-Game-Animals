@@ -1,65 +1,161 @@
-import Image from "next/image";
+'use client';
+
+import Link from "next/link";
+import { Button } from "@/components/Button";
+import { TropicalDecorations } from "@/components/TropicalDecorations";
+import { useEffect } from "react";
 
 export default function Home() {
+  // Play subtle background music on homepage
+  useEffect(() => {
+    let audioContext: AudioContext;
+    let oscillator: OscillatorNode;
+    let gainNode: GainNode;
+
+    const playBackgroundMusic = () => {
+      try {
+        audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+        oscillator = audioContext.createOscillator();
+        gainNode = audioContext.createGain();
+
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+
+        // Gentle tropical melody
+        oscillator.frequency.value = 523; // C5
+        oscillator.type = 'sine';
+        gainNode.gain.value = 0.05; // Very low volume
+
+        oscillator.start();
+      } catch (error) {
+        console.log('Background music disabled');
+      }
+    };
+
+    // Start music on first user interaction
+    const startMusic = () => {
+      playBackgroundMusic();
+      document.removeEventListener('click', startMusic);
+    };
+
+    document.addEventListener('click', startMusic);
+
+    return () => {
+      document.removeEventListener('click', startMusic);
+      if (oscillator) oscillator.stop();
+      if (audioContext) audioContext.close();
+    };
+  }, []);
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <main className="min-h-screen relative z-10">
+      <TropicalDecorations />
+      
+      {/* Hero Section */}
+      <section className="container mx-auto px-4 py-16 sm:py-24">
+        <div className="text-center max-w-4xl mx-auto">
+          <div className="mb-8 animate-bounce-slow">
+            <span className="text-8xl sm:text-9xl">🦁🐵🦜</span>
+          </div>
+          
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6 drop-shadow-lg">
+            Animal Memory Match
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          
+          <p className="text-xl sm:text-2xl text-amber-100 mb-8 drop-shadow-md">
+            Permainan Memori Hewan Tropis Indonesia
           </p>
+          
+          <p className="text-lg text-white/90 mb-12 max-w-2xl mx-auto">
+            Temukan pasangan kartu bergambar hewan-hewan langka Indonesia! 
+            Game edukatif yang menyenangkan untuk anak-anak usia 4-10 tahun.
+          </p>
+          
+          <Link href="/levels">
+            <Button variant="secondary" size="lg" className="text-xl px-12 py-5">
+              🎮 Main Sekarang!
+            </Button>
+          </Link>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      {/* How to Play Section */}
+      <section className="container mx-auto px-4 py-16">
+        <div className="bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl p-8 sm:p-12 max-w-4xl mx-auto border-4 border-green-600">
+          <h2 className="text-3xl sm:text-4xl font-bold text-green-800 mb-8 text-center">
+            🎯 Cara Bermain
+          </h2>
+          
+          <div className="grid sm:grid-cols-2 gap-6">
+            <div className="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-2xl border-2 border-green-300">
+              <div className="text-4xl mb-3">1️⃣</div>
+              <h3 className="font-bold text-xl text-green-800 mb-2">Klik Kartu</h3>
+              <p className="text-green-700">
+                Klik pada kartu untuk membaliknya dan melihat gambar hewan di baliknya.
+              </p>
+            </div>
+            
+            <div className="bg-gradient-to-br from-amber-50 to-amber-100 p-6 rounded-2xl border-2 border-amber-300">
+              <div className="text-4xl mb-3">2️⃣</div>
+              <h3 className="font-bold text-xl text-amber-800 mb-2">Cari Pasangan</h3>
+              <p className="text-amber-700">
+                Balik dua kartu dan ingat lokasinya. Coba temukan pasangan yang sama!
+              </p>
+            </div>
+            
+            <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-2xl border-2 border-blue-300">
+              <div className="text-4xl mb-3">3️⃣</div>
+              <h3 className="font-bold text-xl text-blue-800 mb-2">Cocokkan!</h3>
+              <p className="text-blue-700">
+                Jika kartu cocok, mereka akan tetap terbuka. Jika tidak, mereka akan tertutup kembali.
+              </p>
+            </div>
+            
+            <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-2xl border-2 border-purple-300">
+              <div className="text-4xl mb-3">4️⃣</div>
+              <h3 className="font-bold text-xl text-purple-800 mb-2">Menang!</h3>
+              <p className="text-purple-700">
+                Temukan semua pasangan kartu untuk menyelesaikan level dan lanjut ke level berikutnya!
+              </p>
+            </div>
+          </div>
         </div>
-      </main>
-    </div>
+      </section>
+
+      {/* Benefits Section */}
+      <section className="container mx-auto px-4 py-16 mb-16">
+        <div className="bg-gradient-to-br from-amber-100 to-orange-100 rounded-3xl shadow-2xl p-8 sm:p-12 max-w-4xl mx-auto border-4 border-amber-500">
+          <h2 className="text-3xl sm:text-4xl font-bold text-amber-900 mb-8 text-center">
+            🌟 Manfaat Permainan
+          </h2>
+          
+          <div className="grid sm:grid-cols-3 gap-6 text-center">
+            <div className="bg-white/80 p-6 rounded-2xl">
+              <div className="text-5xl mb-3">🧠</div>
+              <h3 className="font-bold text-lg text-green-800 mb-2">Melatih Memori</h3>
+              <p className="text-green-700 text-sm">
+                Meningkatkan daya ingat dan konsentrasi anak
+              </p>
+            </div>
+            
+            <div className="bg-white/80 p-6 rounded-2xl">
+              <div className="text-5xl mb-3">🦜</div>
+              <h3 className="font-bold text-lg text-green-800 mb-2">Mengenal Satwa</h3>
+              <p className="text-green-700 text-sm">
+                Belajar tentang hewan langka Indonesia
+              </p>
+            </div>
+            
+            <div className="bg-white/80 p-6 rounded-2xl">
+              <div className="text-5xl mb-3">⚡</div>
+              <h3 className="font-bold text-lg text-green-800 mb-2">Cepat Berpikir</h3>
+              <p className="text-green-700 text-sm">
+                Melatih kecepatan dan ketepatan berpikir
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }

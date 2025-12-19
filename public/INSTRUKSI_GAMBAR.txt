@@ -1,0 +1,52 @@
+INSTRUKSI UNTUK MENAMBAHKAN GAMBAR
+====================================
+
+⚠️ PENTING: Sistem sudah siap untuk load gambar. Tinggal copy file saja!
+
+Untuk menampilkan gambar kartu, silakan copy file gambar ke folder berikut dengan NAMA FILE YANG TEPAT:
+
+📁 KARTU BELAKANG (Card Back):
+   Lokasi: public/cards/
+   Nama file: kartu belakang.png (HARUS persis seperti ini!)
+   Path lengkap: public/cards/kartu belakang.png
+   
+   ⚡ CARA CEPAT:
+   1. Buka folder: c:\Users\baske\OneDrive\Dokumen\Kartu Next Js\nama-projek\public\cards\
+   2. Copy file "kartu belakang.png" ke folder tersebut
+   3. Refresh browser (Ctrl+F5)
+
+📁 GAMBAR HEWAN (Animals):
+   Lokasi: public/animals/
+   
+   1. badak jawa.png
+   2. harimau sumatera.png
+   3. orangutan.png
+   4. komodo.png
+   5. gajah sumatera.png
+   6. cendrawasih.png
+   7. anoa.png
+   8. jalak bali.png
+
+CATATAN PENTING:
+- Nama file HARUS persis seperti di atas (termasuk spasi dan huruf kecil)
+- Format gambar: PNG, JPG, atau JPEG
+- Jika gambar tidak muncul, cek:
+  1. Apakah nama file sudah benar?
+  2. Apakah file ada di folder yang tepat?
+  3. Refresh browser dengan Ctrl+F5
+
+Struktur folder yang benar:
+public/
+├── cards/
+│   └── kartu belakang.png
+├── animals/
+│   ├── badak jawa.png
+│   ├── harimau sumatera.png
+│   ├── orangutan.png
+│   ├── komodo.png
+│   ├── gajah sumatera.png
+│   ├── cendrawasih.png
+│   ├── anoa.png
+│   └── jalak bali.png
+└── sounds/
+    └── flip.mp3 (opsional)
