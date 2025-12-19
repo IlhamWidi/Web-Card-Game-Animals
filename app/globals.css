@@ -17,7 +17,7 @@ body {
   background: linear-gradient(135deg, #059669 0%, #065f46 50%, #064e3b 100%);
   background-attachment: fixed;
   color: var(--foreground);
-  font-family: 'Comic Sans MS', 'Chalkboard SE', 'Arial Rounded MT Bold', cursive, sans-serif;
+  font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
   min-height: 100vh;
 }
 
